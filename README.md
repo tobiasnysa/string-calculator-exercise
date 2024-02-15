@@ -43,7 +43,7 @@ int Add(string numbers)
 8.  Numbers bigger than 1000 should be ignored, so adding 2 + 1001 = 2
 
 
-## What are we going to look at
+## What we are going to look at
 
 1.  Code is tested
 2.  Code is clean and readable
