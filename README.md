@@ -1,3 +1,5 @@
+Please fork this repository to do the exercise 🙂
+
 # String calculator
 
 Create a simple calculator that takes a String and returns a integer
