@@ -24,10 +24,6 @@ public class StringCalculatorImpl implements StringCalculator {
     private int[] retrieveIntegersFromString(String numbers) throws IllegalArgumentException {
         String[] stringNumbers =  numbers.split(",");
 
-        if(stringNumbers.length > 2) {
-            throw new IllegalArgumentException("Too many parameters");
-        }
-
         int[] intNumbers = new int[stringNumbers.length];
 
         for (int i = 0; i < intNumbers.length; i++) {

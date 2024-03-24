@@ -34,8 +34,9 @@ class StringCalculatorImplTest {
     }
 
     @Test
-    public void testAdd_MoreThanTwoNumbers_ShouldReturnIllegalArgumentException() {
-        assertThrows(IllegalArgumentException.class, () -> stringCalculator.add("1,2,3"));
+    public void testAdd_MoreThanTwoNumbers_ShouldReturnSum() {
+        assertEquals(6, stringCalculator.add("1,2,3"));
+        assertEquals(57, stringCalculator.add("15,12,23,1,2,4"));
     }
 
     @Test
