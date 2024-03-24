@@ -22,7 +22,7 @@ public class StringCalculatorImpl implements StringCalculator {
     }
 
     private int[] retrieveIntegersFromString(String numbers) throws IllegalArgumentException {
-        String[] stringNumbers =  numbers.split(",");
+        String[] stringNumbers =  numbers.split("[,\n]");
 
         int[] intNumbers = new int[stringNumbers.length];
 

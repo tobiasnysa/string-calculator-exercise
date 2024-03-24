@@ -45,4 +45,17 @@ class StringCalculatorImplTest {
         assertThrows(IllegalArgumentException.class, () -> stringCalculator.add("abc,2"));
     }
 
+    @Test
+    public void testAdd_NumbersWithTwoDifferentProperSeparators_ShouldReturnSum() {
+        assertEquals(10, stringCalculator.add("2,3\n1,4"));
+        assertEquals(20, stringCalculator.add("2\n13\n1,4"));
+    }
+
+    @Test
+    public void testAdd_NumbersWithUnsupportedSeparator_ShouldReturnSum() {
+        assertThrows(IllegalArgumentException.class, () -> stringCalculator.add("2,3\b1,4"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculator.add("2,3\n1$4"));
+    }
+
+
 }
