@@ -1,8 +1,13 @@
 package org.string.calculator.services;
 
-import java.util.Arrays;
-
 public class StringCalculatorImpl implements StringCalculator {
+
+    NumberExtractor numberExtractor;
+
+    public StringCalculatorImpl(NumberExtractor numberExtractor) {
+        this.numberExtractor = numberExtractor;
+    }
+
     @Override
     public int add(String numbers) {
 
@@ -10,7 +15,7 @@ public class StringCalculatorImpl implements StringCalculator {
             return 0;
         }
 
-        int[] numArray = retrieveIntegersFromString(numbers);
+        int[] numArray = numberExtractor.extractIntegersFromString(numbers);
 
         int sum = 0;
 
@@ -19,17 +24,5 @@ public class StringCalculatorImpl implements StringCalculator {
         }
 
         return sum;
-    }
-
-    private int[] retrieveIntegersFromString(String numbers) throws IllegalArgumentException {
-        String[] stringNumbers =  numbers.split("[,\n]");
-
-        int[] intNumbers = new int[stringNumbers.length];
-
-        for (int i = 0; i < intNumbers.length; i++) {
-            intNumbers[i] = Integer.parseInt(stringNumbers[i]);
-        }
-
-        return intNumbers;
     }
 }
