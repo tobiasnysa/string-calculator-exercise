@@ -3,15 +3,20 @@ package org.string.calculator.services;
 public class StringCalculatorImpl implements StringCalculator {
 
     NumberExtractor numberExtractor;
+    StringCalculatorArgsValidator stringCalculatorArgsValidator;
 
-    public StringCalculatorImpl(NumberExtractor numberExtractor) {
+    public StringCalculatorImpl(
+            NumberExtractor numberExtractor,
+            StringCalculatorArgsValidator stringCalculatorArgsValidator
+    ) {
         this.numberExtractor = numberExtractor;
+        this.stringCalculatorArgsValidator = stringCalculatorArgsValidator;
     }
 
     @Override
     public int add(String numbers) {
 
-        if (numbers.isEmpty()) {
+        if (numbers.isEmpty() || !stringCalculatorArgsValidator.isValid(numbers)) {
             return 0;
         }
 
@@ -20,7 +25,7 @@ public class StringCalculatorImpl implements StringCalculator {
         int sum = 0;
 
         for (int i = 0; i < numArray.length; i++) {
-            sum+=numArray[i];
+            sum += numArray[i];
         }
 
         return sum;
