@@ -25,6 +25,7 @@ class StringCalculatorArgsValidatorImplTest {
     public void testIsValid_ProperStringWithoutDelimiter_ReturnsTrue() {
         assertTrue(stringCalculatorArgsValidator.isValid("1\n2,3"));
         assertTrue(stringCalculatorArgsValidator.isValid("1,2,3"));
+        assertTrue(stringCalculatorArgsValidator.isValid("1,2000,3"));
     }
 
     @Test
@@ -45,7 +46,7 @@ class StringCalculatorArgsValidatorImplTest {
 
     @Test
     public void testIsValid_WithNegativeNumber_ReturnTrue() {
-        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("1,-2,a3"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("1,-2,-3"));
         assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("1\n2,-3"));
     }
 }

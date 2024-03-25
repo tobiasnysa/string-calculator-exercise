@@ -103,5 +103,12 @@ class StringCalculatorImplTest {
         assertThrows(IllegalArgumentException.class, () -> stringCalculator.add("2,3\n1$4"));
     }
 
+    @Test
+    public void testAdd_NumberXGreaterThan1000_ShouldReturnSumWithoutX() {
+        int[] firstExtractionResult = {1, 2000, 3};
+        when(numberExtractor.extractIntegersFromString("1,2000,3")).thenReturn(firstExtractionResult);
+        when(stringCalculatorArgsValidator.isValid("1,2000,3")).thenReturn(true);
 
+        assertEquals(4, stringCalculator.add("1,2000,3"));
+    }
 }

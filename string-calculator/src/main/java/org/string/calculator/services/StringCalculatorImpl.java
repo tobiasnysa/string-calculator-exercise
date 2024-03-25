@@ -25,6 +25,10 @@ public class StringCalculatorImpl implements StringCalculator {
         int sum = 0;
 
         for (int i = 0; i < numArray.length; i++) {
+            if (numArray[i] > 1000) {
+                continue;
+            }
+
             sum += numArray[i];
         }
 
