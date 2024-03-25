@@ -18,12 +18,17 @@ public class NumberExtractorImpl implements NumberExtractor {
     }
 
     public static String[] splitStringUsingDelimiter(String numbers, String delimiter) {
+        return retrieveNumbersWithoutDelimiter(numbers)
+                .split(delimiter);
+    }
+
+    public static String retrieveNumbersWithoutDelimiter(String numbers) {
         //if custom delimiter used start from first newline
         if (numbers.startsWith("//")) {
-            numbers =  numbers.substring( numbers.indexOf("\n") + "\n".length());
+            return numbers.substring(numbers.indexOf("\n") + "\n".length());
         }
 
-        return numbers.split(delimiter);
+        return numbers;
     }
 
     public static String determineDelimiter(String numbers) {
@@ -36,7 +41,7 @@ public class NumberExtractorImpl implements NumberExtractor {
             return Pattern.quote(m.group(2));
         }
 
-        //assumed without specified custom delimiter old pattern with coma and newline is still relevant
+        //assumed without specified custom delimiter pattern from requirement #3 with coma and newline is still relevant
         return "[,\n]";
     }
 }

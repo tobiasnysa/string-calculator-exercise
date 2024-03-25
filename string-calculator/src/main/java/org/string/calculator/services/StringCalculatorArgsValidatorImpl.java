@@ -9,9 +9,13 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
 
     public boolean isValid(String numbers) {
         String delimiter = NumberExtractorImpl.determineDelimiter(numbers);
+        numbers = NumberExtractorImpl.retrieveNumbersWithoutDelimiter(numbers);
 
         if (
-                isSeparatorAtTheEnd(numbers, delimiter) || foundInvalidDelimiter(numbers, delimiter)
+                isSeparatorAtTheEnd(numbers, delimiter)
+                        || foundNegativeNumber(numbers, delimiter)
+                        || foundInvalidDelimiter(numbers, delimiter)
+
         ) {
             throw new IllegalArgumentException(errorMsg);
         }
@@ -30,7 +34,6 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
 
     private boolean foundInvalidDelimiter(String numbers, String delimiter) {
 
-        numbers = numbers.substring(numbers.indexOf("\n") + "\n".length());
 
         //regexp allow to find out if numbers string consists of digits and delimiter
         String regex = "^(\\d+|" + delimiter + ")+$";
@@ -51,5 +54,26 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
         }
 
         return true;
+    }
+
+    private boolean foundNegativeNumber(String numbers, String delimiter) {
+        Pattern pattern = Pattern.compile("-\\d+");
+        Matcher matcher;
+        String negativeNums = "";
+        String[] numberArray = NumberExtractorImpl.splitStringUsingDelimiter(numbers, delimiter);
+
+        for (String numAsStr : numberArray) {
+            matcher = pattern.matcher(numAsStr);
+            if (matcher.find()) {
+                negativeNums += negativeNums.isEmpty() ? matcher.group() : ", " + matcher.group();
+            }
+        }
+
+        if (!negativeNums.isEmpty()) {
+            errorMsg += "Negative number(s) not allowed: " + negativeNums;
+            return true;
+        }
+
+        return false;
     }
 }

@@ -62,4 +62,17 @@ class NumberExtractorImplTest {
         assertEquals("\\Q|\\E", NumberExtractorImpl.determineDelimiter("//|\n1|2|3"));
         assertEquals("\\Qsep\\E", NumberExtractorImpl.determineDelimiter("//sep\n2sep5"));
     }
+
+    @Test
+    public void testRetrieveNumbersWithoutDelimiter_StandardDelimiters_ReturnWithoutChange() {
+        assertEquals("1,2\n3", NumberExtractorImpl.retrieveNumbersWithoutDelimiter("1,2\n3"));
+        assertEquals("1,2,3", NumberExtractorImpl.retrieveNumbersWithoutDelimiter("1,2,3"));
+        assertEquals("1\n2\n3", NumberExtractorImpl.retrieveNumbersWithoutDelimiter("1\n2\n3"));
+    }
+
+    @Test
+    public void testRetrieveNumbersWithoutDelimiter_CustomDelimiters_ReturnWithoutChange() {
+        assertEquals("2sep5", NumberExtractorImpl.retrieveNumbersWithoutDelimiter("//sep\n2sep5"));
+        assertEquals("1|2|3", NumberExtractorImpl.retrieveNumbersWithoutDelimiter("//|\n1|2|3"));
+    }
 }
