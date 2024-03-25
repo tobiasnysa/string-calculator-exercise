@@ -10,13 +10,22 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
     public boolean isValid(String numbers) {
         String delimiter = NumberExtractorImpl.determineDelimiter(numbers);
         numbers = NumberExtractorImpl.retrieveNumbersWithoutDelimiter(numbers);
+        Boolean isValid = true;
 
-        if (
-                isSeparatorAtTheEnd(numbers, delimiter)
-                        || foundNegativeNumber(numbers, delimiter)
-                        || foundInvalidDelimiter(numbers, delimiter)
 
-        ) {
+        if (isSeparatorAtTheEnd(numbers, delimiter)) {
+            isValid = false;
+        }
+
+        if (foundNegativeNumber(numbers, delimiter)) {
+            isValid = false;
+        }
+
+        if (foundInvalidDelimiter(numbers, delimiter)) {
+            isValid = false;
+        }
+
+        if (!isValid) {
             throw new IllegalArgumentException(errorMsg);
         }
 
@@ -25,7 +34,7 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
 
     private boolean isSeparatorAtTheEnd(String numbers, String delimiter) {
         if (Pattern.compile(".*" + delimiter + "$").matcher(numbers).find()) {
-            errorMsg += "Separator cannot be at the end of string";
+            errorMsg += "Separator cannot be at the end of string\n";
             return true;
         }
 
@@ -47,10 +56,13 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
         Matcher matcher = Pattern.compile(regex).matcher(numbers);
 
         if (matcher.find()) {
-            errorMsg += delimiter.replace("\\Q", "").replace("\\E", "")
-                    + " expected but " + matcher.group()
-                    + " found at position "
-                    + matcher.start();
+            if (!(matcher.group().equals("-") && foundNegativeNumber(numbers, delimiter))) {
+                errorMsg += delimiter.replace("\\Q", "").replace("\\E", "")
+                        + " expected but " + matcher.group()
+                        + " found at position "
+                        + matcher.start()
+                        + "\n";
+            }
         }
 
         return true;
@@ -70,7 +82,7 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
         }
 
         if (!negativeNums.isEmpty()) {
-            errorMsg += "Negative number(s) not allowed: " + negativeNums;
+            errorMsg += "Negative number(s) not allowed: " + negativeNums + "\n";
             return true;
         }
 

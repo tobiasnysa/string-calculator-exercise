@@ -37,15 +37,15 @@ class StringCalculatorArgsValidatorImplTest {
 
     @Test
     public void testIsValid_InvalidDelimiterUsed_ThrowException() {
-        assertThrows(IllegalArgumentException.class, () ->  stringCalculatorArgsValidator.isValid("//|\n1|2,3"));
-        assertThrows(IllegalArgumentException.class, () ->  stringCalculatorArgsValidator.isValid("//aa|\n1aa|2aa|a3"));
-        assertThrows(IllegalArgumentException.class, () ->  stringCalculatorArgsValidator.isValid("//aa|\n1aa|2d|3"));
-        assertThrows(IllegalArgumentException.class, () ->  stringCalculatorArgsValidator.isValid("//aba|\n1aba|2ab|3"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("//|\n1|2,3"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("//aa|\n1aa|2aa|a3"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("//aa|\n1aa|2d|3"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("//aba|\n1aba|2ab|3"));
     }
 
     @Test
     public void testIsValid_WithNegativeNumber_ReturnTrue() {
-        assertThrows(IllegalArgumentException.class, () ->  stringCalculatorArgsValidator.isValid("1,-2,-3"));
-        assertThrows(IllegalArgumentException.class, () ->  stringCalculatorArgsValidator.isValid("1\n2,-3"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("1,-2,a3"));
+        assertThrows(IllegalArgumentException.class, () -> stringCalculatorArgsValidator.isValid("1\n2,-3"));
     }
 }
