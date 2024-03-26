@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsValidator {
 
     String errorMsg = "";
+    String negativeNums = "";
 
     public boolean isValid(String numbers) {
         String delimiter = NumberExtractorImpl.determineDelimiter(numbers);
@@ -42,8 +43,6 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
     }
 
     private boolean foundInvalidDelimiter(String numbers, String delimiter) {
-
-
         //regexp allow to find out if numbers string consists of digits and delimiter
         String regex = "^(\\d+|" + delimiter + ")+$";
 
@@ -56,7 +55,7 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
         Matcher matcher = Pattern.compile(regex).matcher(numbers);
 
         if (matcher.find()) {
-            if (!(matcher.group().equals("-") && foundNegativeNumber(numbers, delimiter))) {
+            if (!(matcher.group().equals("-") && !negativeNums.isEmpty())) {
                 errorMsg += delimiter.replace("\\Q", "").replace("\\E", "")
                         + " expected but " + matcher.group()
                         + " found at position "
@@ -71,7 +70,6 @@ public class StringCalculatorArgsValidatorImpl implements StringCalculatorArgsVa
     private boolean foundNegativeNumber(String numbers, String delimiter) {
         Pattern pattern = Pattern.compile("-\\d+");
         Matcher matcher;
-        String negativeNums = "";
         String[] numberArray = NumberExtractorImpl.splitStringUsingDelimiter(numbers, delimiter);
 
         for (String numAsStr : numberArray) {

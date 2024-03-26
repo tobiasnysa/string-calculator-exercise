@@ -10,7 +10,6 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class StringCalculatorImplTest {
     private StringCalculator stringCalculator;
     private NumberExtractor numberExtractor;
-
     private StringCalculatorArgsValidator stringCalculatorArgsValidator;
 
     @BeforeEach
@@ -55,15 +54,15 @@ class StringCalculatorImplTest {
 
     @Test
     public void testAdd_MoreThanTwoNumbers_ShouldReturnSum() {
-        int[] firstExtractionResult = {1, 2, 3};
-        when(numberExtractor.extractIntegersFromString("1,2,3")).thenReturn(firstExtractionResult);
-        when(stringCalculatorArgsValidator.isValid("1,2,3")).thenReturn(true);
+        int[] firstExtractionResult = {1000, 2, 3};
+        when(numberExtractor.extractIntegersFromString("1000,2,3")).thenReturn(firstExtractionResult);
+        when(stringCalculatorArgsValidator.isValid("1000,2,3")).thenReturn(true);
 
         int[] secondExtractionResult = {15, 12, 23, 1, 2, 4};
         when(numberExtractor.extractIntegersFromString("15,12,23,1,2,4")).thenReturn(secondExtractionResult);
         when(stringCalculatorArgsValidator.isValid("15,12,23,1,2,4")).thenReturn(true);
 
-        assertEquals(6, stringCalculator.add("1,2,3"));
+        assertEquals(1005, stringCalculator.add("1000,2,3"));
         assertEquals(57, stringCalculator.add("15,12,23,1,2,4"));
     }
 
